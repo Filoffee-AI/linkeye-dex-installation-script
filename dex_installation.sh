@@ -8,8 +8,8 @@ cd /home/LinkEye
 
 echo "=== [2] Cloning DeX Repository ==="
 
-GITHUB_USERNAME="GouravTerwadkar"   # Replace with your GitHub username
-GITHUB_TOKEN="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"   # Replace with your personal access token
+GITHUB_USERNAME="leetcodeisalie"   
+GITHUB_TOKEN="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"  
 GIT_REPO_URL="https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/Filoffee-AI/DeX-Monitoring-V2.git"
 git clone $GIT_REPO_URL DeX
 
