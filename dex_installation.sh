@@ -50,11 +50,7 @@ pip install \
 
 deactivate
 
-echo "=== [6] Starting & Enabling Services ==="
-sudo systemctl start ntp
-sudo systemctl enable ntp
-
-echo "=== [7] Securing DataBase Dependencies ==="
+echo "=== [6] Securing DataBase Dependencies ==="
 sudo mysql_secure_installation <<EOF
 
 n
@@ -64,7 +60,7 @@ y
 y
 EOF
 
-echo "=== [8] Creating DataBase ==="
+echo "=== [7] Creating DataBase ==="
 sudo mysql -u root <<'EOF'
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Fil0ff33@2025';
 FLUSH PRIVILEGES;
@@ -305,7 +301,7 @@ CREATE TABLE fn_tcp_session_monitoring_metrics (
 
 EOF
 
-echo "=== [9] Creating Remaiaining Service for DeX ==="
+echo "=== [8] Creating Remaiaining Service for DeX ==="
 sudo tee /etc/systemd/system/dex.service > /dev/null <<EOF
 [Unit]
 Description=Run DeX scripts after restart, shutdown, and power-up
@@ -321,7 +317,7 @@ Environment="TZ=Asia/Kolkata"
 WantedBy=default.target
 EOF
 
-echo "=== [10] Reloading and Starting Machine ==="
+echo "=== [9] Starting & Enabling Services ==="
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable mysql
