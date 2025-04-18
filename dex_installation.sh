@@ -13,11 +13,7 @@ git clone $GIT_REPO_URL DeX
 
 cd /home/LinkEye/DeX
 
-echo "=== [3] Creating Python Virtual Environment ==="
-/usr/bin/python3.12 -m venv dex_venv
-source dex_venv/bin/activate
-
-echo "=== [4] Installing Python Packages in Virtualenv ==="
+echo "=== [3] Installing Python Packages in Virtualenv ==="
 pip install --upgrade pip
 pip install \
     python-dotenv \
@@ -31,6 +27,10 @@ pip install \
     aiofiles \
     netifaces \
     pytz
+
+echo "=== [4] Creating Python Virtual Environment ==="
+/usr/bin/python3.12 -m venv dex_venv
+source dex_venv/bin/activate
 
 deactivate
 
