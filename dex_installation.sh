@@ -8,7 +8,7 @@ cd /home/LinkEye
 
 echo "=== [2] Cloning DeX Repository ==="
 git config --global credential.helper store
-echo "https://lalalala:i_ghts_wont_jsdsj@github.com" > ~/.git-credentials
+echo "https://leetcodeisalie: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@github.com" > ~/.git-credentials
 
 if [ -d "DeX/.git" ]; then
     cd DeX
