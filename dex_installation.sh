@@ -8,9 +8,9 @@ cd /home/LinkEye
 
 echo "=== [2] Cloning DeX Repository ==="
 
-GITHUB_USERNAME="leetcodeisalie"   
-GITHUB_TOKEN="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"  
-GIT_REPO_URL="https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/Filoffee-AI/DeX-Monitoring-V2.git"
+GITHUB_USERNAME="leetcodeisalie"
+GITHUB_TOKEN="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"
+GIT_REPO_URL="https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/Filoffee-AI/DeX-Monitoring-V2.git"
 git clone $GIT_REPO_URL DeX
 
 cd /home/LinkEye/DeX
