@@ -30,6 +30,7 @@ cd /home/LinkEye/DeX
 
 echo "=== [4] Creating Envionment ==="
 /usr/bin/python3.12 -m venv dex_venv
+sleep 30
 source dex_venv/bin/activate
 
 echo "=== [5] Installing Dependencies ==="
