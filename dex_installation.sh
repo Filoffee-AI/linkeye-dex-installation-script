@@ -28,7 +28,11 @@ git clone $GIT_REPO_URL DeX
 
 cd /home/LinkEye/DeX
 
-echo "=== [4] Installing Dependencies ==="
+echo "=== [4] Creating Envionment ==="
+/usr/bin/python3.12 -m venv dex_venv
+source dex_venv/bin/activate
+
+echo "=== [5] Installing Dependencies ==="
 pip install --upgrade pip
 pip install \
     python-dotenv \
@@ -42,10 +46,6 @@ pip install \
     aiofiles \
     netifaces \
     pytz
-
-echo "=== [5] Creating Envionment ==="
-/usr/bin/python3.12 -m venv dex_venv
-source dex_venv/bin/activate
 
 deactivate
 
