@@ -2,18 +2,33 @@
 
 set -e
 
-echo "=== [1] Creating Folder Structure ==="
+echo "=== [1] Installing Required Packages ==="
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y \
+    mysql-server \
+    nmap \
+    dublin-traceroute \
+    net-tools \
+    wireguard \
+    ca-certificates \
+    ntp \
+    python3.12-venv \
+    python3-pip \
+    git
+    
+echo "=== [2] Creating Directory Structure ==="
 mkdir -p /home/LinkEye/{DeX,WAN,LAN}
 cd /home/LinkEye
 
-echo "=== [2] Cloning DeX Repository ==="
+echo "=== [3] Cloning DeX Repository ==="
 
 GIT_REPO_URL="https://github.com/Filoffee-AI/DeX-Monitoring-V2.git"
 git clone $GIT_REPO_URL DeX
 
 cd /home/LinkEye/DeX
 
-echo "=== [3] Installing Python Packages in Virtualenv ==="
+echo "=== [4] Installing Dependencies ==="
 pip install --upgrade pip
 pip install \
     python-dotenv \
@@ -28,32 +43,17 @@ pip install \
     netifaces \
     pytz
 
-echo "=== [4] Creating Python Virtual Environment ==="
+echo "=== [5] Creating Envionment ==="
 /usr/bin/python3.12 -m venv dex_venv
 source dex_venv/bin/activate
 
 deactivate
 
-echo "=== [5] Installing Ubuntu Packages ==="
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install -y \
-    mysql-server \
-    nmap \
-    dublin-traceroute \
-    net-tools \
-    wireguard \
-    ca-certificates \
-    ntp \
-    python3.12-venv \
-    python3-pip \
-    git
-
-echo "=== [6] Starting & Enabling NTP ==="
+echo "=== [6] Starting & Enabling Services ==="
 sudo systemctl start ntp
 sudo systemctl enable ntp
 
-echo "=== [7] Securing MySQL ==="
+echo "=== [7] Securing DataBase Dependencies ==="
 sudo mysql_secure_installation <<EOF
 
 n
@@ -63,7 +63,7 @@ y
 y
 EOF
 
-echo "=== [8] Creating MySQL User, Database, and Tables ==="
+echo "=== [8] Creating DataBase ==="
 sudo mysql -u root <<'EOF'
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Fil0ff33@2025';
 FLUSH PRIVILEGES;
@@ -304,7 +304,7 @@ CREATE TABLE fn_tcp_session_monitoring_metrics (
 
 EOF
 
-echo "=== [9] Creating Systemd Service for DeX ==="
+echo "=== [9] Creating Remaiaining Service for DeX ==="
 sudo tee /etc/systemd/system/dex.service > /dev/null <<EOF
 [Unit]
 Description=Run DeX scripts after restart, shutdown, and power-up
@@ -320,7 +320,7 @@ Environment="TZ=Asia/Kolkata"
 WantedBy=default.target
 EOF
 
-echo "=== [10] Reloading and Starting Services ==="
+echo "=== [10] Reloading and Starting Machine ==="
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable mysql
